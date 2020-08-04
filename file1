@@ -1,0 +1,139 @@
+#From the dataset, fit a linear model on the relationship between the temperature in the living room in Celsius (x = T2) and the temperature outside the building (y = T6). 
+#What is the R^2 value in two D.P?
+
+# Import Libraries and Load the dataset.
+import numpy as np
+import pandas as pd
+import seaborn as sns
+%matplotlib inline
+from sklearn.preprocessing import MinMaxScaler
+
+df=pd.read_csv('Dataset2_energydata_complete.csv')
+
+#drop lights and date
+df =df.drop(['date', 'lights'],axis =1)
+
+#Normalize the dataset using minmax scaler.
+scaler = MinMaxScaler()
+df_scaled = scaler.fit_transform(df)
+
+#Transform the dataset back to a dataframe and insert the right columns
+
+data_columns = df.columns
+df_scaled_df = pd.DataFrame(data=df_scaled, index = None, columns = data_columns )
+
+x1 = df_scaled_df['T2']
+y1 = df_scaled_df['T6']
+
+from sklearn.model_selection import train_test_split
+x1_train, x1_test, y1_train, y1_test = train_test_split(x1,y1,test_size = 0.3, random_state = 42)
+
+x1_train = pd.DataFrame(x1_train)
+x1_test = pd.DataFrame(x1_test)
+
+from sklearn.linear_model import LinearRegression
+Linear_model = LinearRegression()
+Linear_model.fit(x1_train,y1_train)
+predicted_values1 = Linear_model.predict(x1_test)
+
+
+#MAE
+from sklearn.metrics import mean_absolute_error
+mae = mean_absolute_error(y1_test, predicted_values1)
+round(mae, 3)
+print('Mean absoulte error: ', mae)
+
+. #MSE
+from sklearn.metrics import  mean_squared_error
+rmse = np.sqrt(mean_squared_error(y1_test, predicted_values1))
+round(rmse, 3)
+print('Mean Squared error: ', rmse)
+
+ #RSS
+rss = np.sum(np.square(y1_test - predicted_values1))
+round(rss, 3)
+print('Residual sum of squares: ', rss)
+
+# R Squared
+from sklearn.metrics import r2_score
+r2_score = r2_score(y1_test, predicted_values1)
+round(r2_score, 3)
+print('R Squared score: ', r2_score)
+
+from sklearn.linear_model import Ridge
+ridge_reg = Ridge(alpha=0.4)
+ridge_reg.fit(x1_train, y1_train)
+
+predicted_values_ridge = ridge_reg.predict(x1_test)
+
+
+# performance metrics
+1. #MAE
+from sklearn.metrics import mean_absolute_error
+mae = mean_absolute_error(y1_test, predicted_values_ridge)
+round(mae, 3)
+print('Mean absoulte error: ', mae)
+
+2. #MSE
+from sklearn.metrics import  mean_squared_error
+rmse = np.sqrt(mean_squared_error(y1_test, predicted_values_ridge))
+round(rmse, 3)
+print('Mean Squared error: ', rmse)
+
+3. #RSS
+rss = np.sum(np.square(y1_test - predicted_values_ridge))
+round(rss, 3)
+print('Residual sum of squares: ', rss)
+
+4. # R Squared
+from sklearn.metrics import r2_score
+r2_score = r2_score(y1_test, predicted_values_ridge)
+round(r2_score, 3)
+print('R Squared score: ', r2_score)
+
+from sklearn.linear_model import Lasso
+lasso_reg = Lasso(alpha=0.001)
+lasso_reg.fit(x_train, y_train)
+predicted_values_lasso = lasso_reg.predict(x1_test)
+
+1. #MAE
+from sklearn.metrics import mean_absolute_error
+mae = mean_absolute_error(y1_test, predicted_values_lasso)
+round(mae, 3)
+print('Mean absoulte error: ', mae)
+
+2. #MSE
+from sklearn.metrics import  mean_squared_error
+rmse = np.sqrt(mean_squared_error(y1_test, predicted_values_lasso))
+round(rmse, 3)
+print('Mean Squared error: ', rmse)
+
+3. #RSS
+rss = np.sum(np.square(y1_test - predicted_values_lasso))
+round(rss, 3)
+print('Residual sum of squares: ', rss)
+
+4. # R Squared
+from sklearn.metrics import r2_score
+r2_score = r2_score(y1_test, predicted_values_lasso)
+round(r2_score, 3)
+print('R Squared score: ', r2_score)
+
+lasso_reg.coef_ # returns the weights of the lasso regression.
+
+
+#comparing the effects of regularisation
+def get_weights_df(model, feat, col_name):
+  #this function returns the weight of every feature
+  weights = pd.Series(model.coef_, feat.columns).sort_values()
+  weights_df = pd.DataFrame(weights).reset_index()
+  weights_df.columns = ['Features', col_name]
+  weights_df[col_name].round(3)
+  return weights_df
+
+linear_model_weights = get_weights_df(Linear_model, x_train, 'Linear_Model_Weight')
+ridge_weights_df = get_weights_df(ridge_reg, x_train, 'Ridge_Weight')
+lasso_weights_df = get_weights_df(lasso_reg, x_train, 'Lasso_weight')
+
+final_weights = pd.merge(linear_model_weights, ridge_weights_df, on='Features')
+final_weights = pd.merge(final_weights, lasso_weights_df, on='Features')
