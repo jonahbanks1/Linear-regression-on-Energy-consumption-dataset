@@ -1,5 +1,4 @@
-# Stage-B-graded-quiz
-all codes used.
+
 
 
 In this project, I analyzed Energy consumption data on behalf of a power company.
