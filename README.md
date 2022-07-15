@@ -17,7 +17,7 @@ Notes:
 All calendar timestamps are present in the dataset but for some timestamps, the measurement values are missing: a missing value is represented by the absence of value between two consecutive semi-colon attribute separators. For instance, the dataset shows missing values on April 28, 2007.
 
 
-**Attribute Information**:
+**Attribute Information** :
 
   1.date: Date in format dd/mm/yyyy
   2.time: time in format hh:mm:ss
