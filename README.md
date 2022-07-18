@@ -6,28 +6,45 @@ In this project, I analyzed Energy consumption data on behalf of a power company
 Individual household electric power consumption
 
 
-**Dataset Description**: 
-  This archive contains 2075259 measurements gathered in a house located in Sceaux (7km of Paris, France) between December 2006 and November 2010 (47 months).
+**Data Set Information**:
 
-Notes:
-1.(global_active_power*1000/60 - sub_metering_1 - sub_metering_2 - sub_metering_3) 
-  - represents the active energy consumed every minute (in watt hour) in the household by electrical equipment not measured in sub-meterings 1, 2 and 3.
-
-2.The dataset contains some missing values in the measurements (nearly 1,25% of the rows). 
-All calendar timestamps are present in the dataset but for some timestamps, the measurement values are missing: a missing value is represented by the absence of value between two consecutive semi-colon attribute separators. For instance, the dataset shows missing values on April 28, 2007.
+The data set is at 10 min for about 4.5 months. The house temperature and humidity conditions were monitored with a ZigBee wireless sensor network. Each wireless node transmitted the temperature and humidity conditions around 3.3 min. Then, the wireless data was averaged for 10 minutes periods. The energy data was logged every 10 minutes with m-bus energy meters. Weather from the nearest airport weather station (Chievres Airport, Belgium) was downloaded from a public data set from Reliable Prognosis (rp5.ru), and merged together with the experimental data sets using the date and time column. Two random variables have been included in the data set for testing the regression models and to filter out non predictive attributes (parameters).
 
 
-**Attribute Information** :
+Attribute Information:
 
-  1.date: Date in format dd/mm/yyyy
-  2.time: time in format hh:mm:ss
-  3.global_active_power: household global minute-averaged active power (in kilowatt)
-  4.global_reactive_power: household global minute-averaged reactive power (in kilowatt)
-  5.voltage: minute-averaged voltage (in volt)
-  6.global_intensity: household global minute-averaged current intensity (in ampere)
-  7.sub_metering_1: energy sub-metering No. 1 (in watt-hour of active energy). It corresponds to the kitchen, containing mainly a dishwasher, an oven and a microwave (hot plates are not electric but gas powered).
-  8.sub_metering_2: energy sub-metering No. 2 (in watt-hour of active energy). It corresponds to the laundry room, containing a washing-machine, a tumble-drier, a refrigerator and a light.
-  9.sub_metering_3: energy sub-metering No. 3 (in watt-hour of active energy). It corresponds to an electric water-heater and an air-conditioner.
+date time year-month-day hour:minute:second
+Appliances, energy use in Wh
+lights, energy use of light fixtures in the house in Wh
+T1, Temperature in kitchen area, in Celsius
+RH_1, Humidity in kitchen area, in %
+T2, Temperature in living room area, in Celsius
+RH_2, Humidity in living room area, in %
+T3, Temperature in laundry room area
+RH_3, Humidity in laundry room area, in %
+T4, Temperature in office room, in Celsius
+RH_4, Humidity in office room, in %
+T5, Temperature in bathroom, in Celsius
+RH_5, Humidity in bathroom, in %
+T6, Temperature outside the building (north side), in Celsius
+RH_6, Humidity outside the building (north side), in %
+T7, Temperature in ironing room , in Celsius
+RH_7, Humidity in ironing room, in %
+T8, Temperature in teenager room 2, in Celsius
+RH_8, Humidity in teenager room 2, in %
+T9, Temperature in parents room, in Celsius
+RH_9, Humidity in parents room, in %
+To, Temperature outside (from Chievres weather station), in Celsius
+Pressure (from Chievres weather station), in mm Hg
+RH_out, Humidity outside (from Chievres weather station), in %
+Wind speed (from Chievres weather station), in m/s
+Visibility (from Chievres weather station), in km
+Tdewpoint (from Chievres weather station), Â°C
+rv1, Random variable 1, nondimensional
+rv2, Random variable 2, nondimensional
+
+Where indicated, hourly data (then interpolated) from the nearest airport weather station (Chievres Airport, Belgium) was downloaded from a public data set from Reliable Prognosis, rp5.ru. Permission was obtained from Reliable Prognosis for the distribution of the 4.5 months of weather data.
+
 
 
 **Dataset source**: https://archive.ics.uci.edu/ml/datasets/Appliances%20energy%20prediction
