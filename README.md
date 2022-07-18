@@ -30,8 +30,8 @@ All calendar timestamps are present in the dataset but for some timestamps, the 
   9.sub_metering_3: energy sub-metering No. 3 (in watt-hour of active energy). It corresponds to an electric water-heater and an air-conditioner.
 
 
-**Dataset source**: https://archive.ics.uci.edu/ml/datasets/individual+household+electric+power+consumption#
-                  : https://archive.ics.uci.edu/ml/datasets/Electrical+Grid+Stability+Simulated+Data+
+**Dataset source**: https://archive.ics.uci.edu/ml/datasets/Appliances%20energy%20prediction
+
 
 
 Exploratory visuals pointed to a linear relationship between variables so we use a linear regression model for this prediction.
