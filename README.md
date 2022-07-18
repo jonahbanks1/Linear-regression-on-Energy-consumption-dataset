@@ -31,6 +31,7 @@ All calendar timestamps are present in the dataset but for some timestamps, the 
 
 
 **Dataset source**: https://archive.ics.uci.edu/ml/datasets/individual+household+electric+power+consumption#
+                  : https://archive.ics.uci.edu/ml/datasets/Electrical+Grid+Stability+Simulated+Data+
 
 
 Exploratory visuals pointed to a linear relationship between variables so we use a linear regression model for this prediction.
